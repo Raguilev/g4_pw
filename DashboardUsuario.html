@@ -69,7 +69,24 @@
                     legend: { display: false },
                 },
                 scales: {
-                    y: { beginAtZero: true }
+                    x: { 
+                        ticks: {
+                            font: {
+                                size: 13, 
+                            },
+                        },
+                        grid: {
+                            display: false, // Sin líneas verticales
+                        },
+                    },
+                    y: { 
+                        beginAtZero: true,
+                        ticks: {
+                            font: {
+                                size: 13, 
+                            },
+                        },
+                    }
                 }
             }
         });
@@ -93,7 +110,23 @@
                     legend: { display: false },
                 },
                 scales: {
-                    y: { beginAtZero: true }
+                    x: { 
+                        grid: {
+                            display: false, // Sin líneas verticales
+                        },
+                        ticks: {
+                            font: {
+                                size: 13, 
+                            },
+                        },
+                    },
+                    y: { beginAtZero: true,
+                        ticks: {
+                            font: {
+                                size: 13, 
+                            },
+                        },
+                    }
                 }
             }
         });
