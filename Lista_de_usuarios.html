@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Usuarios</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      min-height: 100vh;
+      background: #f9f9f9;
+    }
+
+    .container {
+      display: flex;
+      width: 100%;
+    }
+
+    .sidebar {
+      width: 20%;
+      background: #2c3e50;
+      color: white;
+      padding: 20px;
+    }
+
+    .sidebar .profile {
+      text-align: center;
+    }
+
+    .sidebar img {
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    .sidebar nav ul {
+      list-style: none;
+      margin-top: 20px;
+    }
+
+    .sidebar nav ul li {
+      margin-bottom: 15px;
+    }
+
+    .sidebar nav ul li a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .sidebar nav ul li.active a {
+      font-weight: bold;
+    }
+
+    main {
+      width: 80%;
+      padding: 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    header .actions button {
+      margin-left: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+
+    table th {
+      background: #34495e;
+      color: white;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .modal-actions button {
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="profile">
+        <img src="https://via.placeholder.com/100" alt="Profile">
+        <h2>Jessica Straus</h2>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#">Dashboard</a></li>
+          <li class="active"><a href="#">Usuarios</a></li>
+          <li><a href="#">Historial</a></li>
+          <li><a href="#">Configuración</a></li>
+          <li><a href="#">Salir</a></li>
+        </ul>
+      </nav>
+    </aside>
+    <main>
+      <header>
+        <h1>Mis usuarios</h1>
+        <div class="actions">
+          <button id="filterButton">Filtrar</button>
+          <button id="addButton">Agregar</button>
+        </div>
+      </header>
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Password</th>
+            <th>Rol</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody id="userTable">
+          <tr>
+            <td>001</td>
+            <td>Jessica</td>
+            <td>jess@taxes.com</td>
+            <td>12345</td>
+            <td>Admin</td>
+            <td><button>✏️</button><button>🗑️</button></td>
+          </tr>
+          <tr>
+            <td>002</td>
+            <td>Jhon</td>
+            <td>jon@taxes.com</td>
+            <td>6789</td>
+            <td>User</td>
+            <td><button>✏️</button><button>🗑️</button></td>
+          </tr>
+          <tr>
+            <td>003</td>
+            <td>Diego</td>
+            <td>diego@taxes.com</td>
+            <td>1011</td>
+            <td>User</td>
+            <td><button>✏️</button><button>🗑️</button></td>
+          </tr>
+          <tr>
+            <td>004</td>
+            <td>Juan</td>
+            <td>juan@taxes.com</td>
+            <td>1213</td>
+            <td>User</td>
+            <td><button>✏️</button><button>🗑️</button></td>
+          </tr>
+          <tr>
+            <td>005</td>
+            <td>Luis</td>
+            <td>luis@taxes.com</td>
+            <td>1415</td>
+            <td>User</td>
+            <td><button>✏️</button><button>🗑️</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  </div>
+
+  <div class="modal" id="filterModal">
+    <div class="modal-content">
+      <h2>Filtrar por rol de usuario</h2>
+      <label for="roleFilter">Rol</label>
+      <select id="roleFilter">
+        <option value="all">Todos</option>
+        <option value="Admin">Admin</option>
+        <option value="User">User</option>
+      </select>
+      <div class="modal-actions">
+        <button id="cancelFilter">Cancelar</button>
+        <button id="applyFilter">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("filterButton").addEventListener("click", () => {
+      document.getElementById("filterModal").style.display = "flex";
+    });
+
+    document.getElementById("cancelFilter").addEventListener("click", () => {
+      document.getElementById("filterModal").style.display = "none";
+    });
+
+    document.getElementById("applyFilter").addEventListener("click", () => {
+      const role = document.getElementById("roleFilter").value;
+      const rows = document.querySelectorAll("#userTable tr");
+
+      rows.forEach(row => {
+        const roleCell = row.children[4].textContent;
+        if (role === "all" || role === roleCell) {
+          row.style.display = "";
+        } else {
+          row.style.display = "none";
+        }
+      });
+
+      document.getElementById("filterModal").style.display = "none";
+    });
+  </script>
+</body>
+</html>
