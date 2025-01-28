@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="d-flex">
+        <nav class="sidebar bg-light vh-100 ">
+            <div class="text-center my-3">
+                <img src="/assets/cara.png" alt="User Image" class="rounded-circle" width="100" height="100">
+                <h5 class="mt-2">Rodolfo Jhonson</h5>
+            </div>
+            <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link text-muted" href="#" data-section="dashboard"><img src="/assets/grafico.png" width="20" class="me-2"> Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link text-muted" href="#" data-section="gastos"><img src="/assets/gasto.png" width="20" class="me-2"> Gastos</a></li>
+                <li class="nav-item"><a class="nav-link text-muted" href="#" data-section="presupuestos"><img src="/assets/money.png" width="20" class="me-2"> Presupuestos</a></li>
+                <li class="nav-item"><a class="nav-link text-muted" href="#" data-section="configuracion"><img src="/assets/configuracion.png" width="20" class="me-2"> Configuración</a></li>
+                <li class="nav-item"><a class="nav-link text-muted" href="#" data-section="salir"><img src="/assets/salida.png" width="20" class="me-2"> Salir</a></li>
+            </ul>
+        </nav>
+        
+        <main class="container my-5">
+            <div id="dashboard" class="content-section">
+                <h3 class="mb-4">Dashboard</h3>
+                <p>Aquí se muestra la información general de tu cuenta.</p>
+            </div>
+
+            <div id="gastos" class="content-section d-none">
+                <h3 class="mb-4">Gastos</h3>
+                <p>Aquí puedes ver y administrar tus gastos.</p>
+            </div>
+
+            <div id="presupuestos" class="content-section d-none">
+                <h3 class="mb-4">Presupuestos</h3>
+                <p>Aquí puedes planificar y administrar tus presupuestos.</p>
+            </div>
+
+            <!-- Sección de Configuración -->
+            <div id="configuracion" class="content-section d-none">
+                <h3 class="mb-4">Configuración</h3>
+                <div class="card p-4">
+                    <h5 class="card-title">Información personal</h5>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p><strong>Nombre:</strong> Rodolfo Suacheneguer</p>
+                            <p><strong>Correo electrónico:</strong> rneguer@taxes.com</p>
+                            <p><strong>Contraseña:</strong> ****</p>
+                        </div>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="salir" class="content-section d-none">
+                <h3 class="mb-4">Cerrar Sesión</h3>
+                <p>Has cerrado sesión correctamente.</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal (Formulario emergente) -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-5 p-4">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Editar Información de Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="name" value="Rodolfo Suacheneguer">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Correo</label>
+                            <input type="email" class="form-control" id="email" value="rneguer@taxes.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="password" value="12345">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="saveButton">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const navLinks = document.querySelectorAll(".nav-link");
+            const sections = document.querySelectorAll(".content-section");
+
+            function showSection(sectionId) {
+                sections.forEach(section => {
+                    section.classList.add("d-none");
+                });
+                document.getElementById(sectionId).classList.remove("d-none");
+
+                navLinks.forEach(link => {
+                    link.classList.remove("active");
+                    if (link.getAttribute("data-section") === sectionId) {
+                        link.classList.add("active");
+                    }
+                });
+
+                localStorage.setItem("activeSection", sectionId);
+            }
+
+            const savedSection = localStorage.getItem("activeSection");
+            if (savedSection) {
+                showSection(savedSection);
+            } else {
+                showSection("dashboard");
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    const sectionId = this.getAttribute("data-section");
+                    showSection(sectionId);
+                });
+            });
+
+            const saveButton = document.getElementById("saveButton");
+            const editModal = new bootstrap.Modal(document.getElementById("editModal"));
+
+            saveButton.addEventListener("click", function () {
+                alert("Cambios guardados correctamente.");
+                editModal.hide();
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
