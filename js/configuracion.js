@@ -1,3 +1,4 @@
+//esta hardcodeado muchachos no lo toquen :C
 document.getElementById("content").innerHTML = `
     <h3 class="mb-4">Configuración</h3>
     <div class="card p-4">

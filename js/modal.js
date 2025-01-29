@@ -7,3 +7,5 @@ document.addEventListener("DOMContentLoaded", function () {
         editModal.hide();
     });
 });
+
+//de ahí agrego los demás...
