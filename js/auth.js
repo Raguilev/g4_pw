@@ -8,7 +8,7 @@ function login() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    // Simulación de credenciales (debes reemplazar con una API real)
+    // Simulación de credenciales
     const validEmail = "roma";
     const validPassword = "soda";
 
