@@ -4,91 +4,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lista de Usuarios</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f9;
       display: flex;
-      min-height: 100vh;
-      background: #f9f9f9;
     }
-
-    .container {
-      display: flex;
-      width: 100%;
-    }
-
     .sidebar {
-      width: 20%;
-      background: #2c3e50;
-      color: white;
+      width: 250px;
+      background-color: #ffffff;
       padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      margin-right: 20px;
     }
-
-    .sidebar .profile {
+    .main-content {
+      flex: 1;
+    }
+    .profile {
       text-align: center;
-    }
-
-    .sidebar img {
-      border-radius: 50%;
-      margin-bottom: 10px;
-    }
-
-    .sidebar nav ul {
-      list-style: none;
-      margin-top: 20px;
-    }
-
-    .sidebar nav ul li {
-      margin-bottom: 15px;
-    }
-
-    .sidebar nav ul li a {
-      color: white;
-      text-decoration: none;
-    }
-
-    .sidebar nav ul li.active a {
-      font-weight: bold;
-    }
-
-    main {
-      width: 80%;
-      padding: 20px;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       margin-bottom: 20px;
     }
-
-    header .actions button {
-      margin-left: 10px;
+    .profile img {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
     }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
+    .container-box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     }
-
-    table th, table td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: center;
-    }
-
-    table th {
-      background: #34495e;
-      color: white;
-    }
-
     .modal {
       display: none;
       position: fixed;
@@ -100,45 +48,42 @@
       justify-content: center;
       align-items: center;
     }
-
     .modal-content {
       background: white;
       padding: 20px;
       border-radius: 10px;
       text-align: center;
-    }
-
-    .modal-actions button {
-      margin: 10px;
+      width: 300px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <aside class="sidebar">
-      <div class="profile">
-        <img src="https://via.placeholder.com/100" alt="Profile">
-        <h2>Jessica Straus</h2>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="#">Dashboard</a></li>
-          <li class="active"><a href="#">Usuarios</a></li>
-          <li><a href="#">Historial</a></li>
-          <li><a href="#">Configuración</a></li>
-          <li><a href="#">Salir</a></li>
-        </ul>
-      </nav>
-    </aside>
-    <main>
+  <div class="sidebar">
+    <div class="profile">
+      <img src="https://via.placeholder.com/100" alt="Foto de perfil">
+      <h4>Jessica Straus</h4>
+    </div>
+    <nav>
+      <ul class="list-unstyled">
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Usuarios</a></li>
+        <li><a href="#">Historial</a></li>
+        <li><a href="#">Configuración</a></li>
+        <li><a href="#">Salir</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="main-content">
+    <div class="container-box">
       <header>
         <h1>Mis usuarios</h1>
-        <div class="actions">
-          <button id="filterButton">Filtrar</button>
-          <button id="addButton">Agregar</button>
+        <div class="actions mb-3">
+          <button id="filterButton" class="btn btn-primary">Filtrar por rol</button>
+          <button id="addButton" class="btn btn-success">Agregar</button>
         </div>
       </header>
-      <table>
+      <table class="table">
         <thead>
           <tr>
             <th>Id</th>
@@ -156,7 +101,10 @@
             <td>jess@taxes.com</td>
             <td>12345</td>
             <td>Admin</td>
-            <td><button>✏️</button><button>🗑️</button></td>
+            <td>
+              <button class="edit-button btn btn-sm btn-warning">✏️</button>
+              <button class="delete-button btn btn-sm btn-danger">🗑️</button>
+            </td>
           </tr>
           <tr>
             <td>002</td>
@@ -164,76 +112,119 @@
             <td>jon@taxes.com</td>
             <td>6789</td>
             <td>User</td>
-            <td><button>✏️</button><button>🗑️</button></td>
+            <td>
+              <button class="edit-button btn btn-sm btn-warning">✏️</button>
+              <button class="delete-button btn btn-sm btn-danger">🗑️</button>
+            </td>
           </tr>
           <tr>
             <td>003</td>
-            <td>Diego</td>
-            <td>diego@taxes.com</td>
-            <td>1011</td>
+            <td>Ana</td>
+            <td>ana@taxes.com</td>
+            <td>7890</td>
             <td>User</td>
-            <td><button>✏️</button><button>🗑️</button></td>
+            <td>
+              <button class="edit-button btn btn-sm btn-warning">✏️</button>
+              <button class="delete-button btn btn-sm btn-danger">🗑️</button>
+            </td>
           </tr>
           <tr>
             <td>004</td>
-            <td>Juan</td>
-            <td>juan@taxes.com</td>
-            <td>1213</td>
-            <td>User</td>
-            <td><button>✏️</button><button>🗑️</button></td>
-          </tr>
-          <tr>
-            <td>005</td>
-            <td>Luis</td>
-            <td>luis@taxes.com</td>
-            <td>1415</td>
-            <td>User</td>
-            <td><button>✏️</button><button>🗑️</button></td>
+            <td>Pedro</td>
+            <td>pedro@taxes.com</td>
+            <td>4567</td>
+            <td>Admin</td>
+            <td>
+              <button class="edit-button btn btn-sm btn-warning">✏️</button>
+              <button class="delete-button btn btn-sm btn-danger">🗑️</button>
+            </td>
           </tr>
         </tbody>
       </table>
-    </main>
+    </div>
   </div>
 
   <div class="modal" id="filterModal">
     <div class="modal-content">
       <h2>Filtrar por rol de usuario</h2>
-      <label for="roleFilter">Rol</label>
-      <select id="roleFilter">
-        <option value="all">Todos</option>
+      <label for="filterRole">Rol</label>
+      <select id="filterRole" class="form-select">
+        <option value="">Todos</option>
         <option value="Admin">Admin</option>
         <option value="User">User</option>
       </select>
-      <div class="modal-actions">
-        <button id="cancelFilter">Cancelar</button>
-        <button id="applyFilter">Aceptar</button>
+      <div class="modal-actions mt-3">
+        <button id="cancelFilter" class="btn btn-secondary">Cancelar</button>
+        <button id="acceptFilter" class="btn btn-primary">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="editUserModal">
+    <div class="modal-content">
+      <h2>Editar Usuario</h2>
+      <label for="userName">Nombre:</label>
+      <input type="text" id="userName" class="form-control">
+      <label for="userEmail" class="mt-2">Correo:</label>
+      <input type="email" id="userEmail" class="form-control">
+      <label for="userPassword" class="mt-2">Password:</label>
+      <input type="password" id="userPassword" class="form-control">
+      <label for="userRole" class="mt-2">Rol:</label>
+      <select id="userRole" class="form-select">
+        <option value="Admin">Admin</option>
+        <option value="User">User</option>
+      </select>
+      <div class="modal-actions mt-3">
+        <button id="cancelEdit" class="btn btn-secondary">Cancelar</button>
+        <button id="saveEdit" class="btn btn-success">Guardar</button>
       </div>
     </div>
   </div>
 
   <script>
-    document.getElementById("filterButton").addEventListener("click", () => {
+    let editingRow = null;
+
+    document.querySelectorAll('.edit-button').forEach(button => {
+      button.addEventListener('click', function () {
+        editingRow = this.closest('tr');
+        document.getElementById("userName").value = editingRow.children[1].textContent;
+        document.getElementById("userEmail").value = editingRow.children[2].textContent;
+        document.getElementById("userPassword").value = editingRow.children[3].textContent;
+        document.getElementById("userRole").value = editingRow.children[4].textContent;
+        document.getElementById("editUserModal").style.display = "flex";
+      });
+    });
+
+    document.getElementById("cancelFilter").addEventListener("click", function () {
+      document.getElementById("filterModal").style.display = "none";
+    });
+
+    document.getElementById("filterButton").addEventListener("click", function () {
       document.getElementById("filterModal").style.display = "flex";
     });
 
-    document.getElementById("cancelFilter").addEventListener("click", () => {
+    document.getElementById("acceptFilter").addEventListener("click", function () {
+      const selectedRole = document.getElementById("filterRole").value;
+      const rows = document.querySelectorAll("#userTable tr");
+      rows.forEach(row => {
+        const role = row.children[4].textContent;
+        row.style.display = selectedRole === "" || role === selectedRole ? "table-row" : "none";
+      });
       document.getElementById("filterModal").style.display = "none";
     });
 
-    document.getElementById("applyFilter").addEventListener("click", () => {
-      const role = document.getElementById("roleFilter").value;
-      const rows = document.querySelectorAll("#userTable tr");
+    document.getElementById("cancelEdit").addEventListener("click", function () {
+      document.getElementById("editUserModal").style.display = "none";
+    });
 
-      rows.forEach(row => {
-        const roleCell = row.children[4].textContent;
-        if (role === "all" || role === roleCell) {
-          row.style.display = "";
-        } else {
-          row.style.display = "none";
-        }
-      });
-
-      document.getElementById("filterModal").style.display = "none";
+    document.getElementById("saveEdit").addEventListener("click", function () {
+      if (editingRow) {
+        editingRow.children[1].textContent = document.getElementById("userName").value;
+        editingRow.children[2].textContent = document.getElementById("userEmail").value;
+        editingRow.children[3].textContent = document.getElementById("userPassword").value;
+        editingRow.children[4].textContent = document.getElementById("userRole").value;
+      }
+      document.getElementById("editUserModal").style.display = "none";
     });
   </script>
 </body>
